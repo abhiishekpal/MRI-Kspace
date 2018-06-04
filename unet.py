@@ -130,11 +130,11 @@ def train_and_predict():
     imgs_un /= 255.0
     print(imgs_un.shape)
     model = get_unet()
-    #model_checkpoint = ModelCheckpoint('./undersampled/weights.h5', monitor='val_loss', save_best_only=True)
-    #model.fit(imgs_un, imgs_gt, batch_size=32, nb_epoch=2000, verbose=1, shuffle=True,validation_split=0.2,callbacks=[model_checkpoint])
+    model_checkpoint = ModelCheckpoint('./undersampled/weights.h5', monitor='val_loss', save_best_only=True)
+    model.fit(imgs_un, imgs_gt, batch_size=32, nb_epoch=2000, verbose=1, shuffle=True,validation_split=0.2,callbacks=[model_checkpoint])
 
-    #model.load_weights('./undersampled/weights.h5')
-    #imgs_predicted = model.predict(imgs_un, verbose=1)
+    model.load_weights('./undersampled/weights.h5')
+    imgs_predicted = model.predict(imgs_un, verbose=1)
 
     img = imgs_un[0,:,:,0]
     cv2.imwrite("gen.png",img*255.0)
